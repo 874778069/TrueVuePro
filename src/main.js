@@ -5,7 +5,7 @@ import App from './App'
 import router from './router'
 import store from "./store/index.js"
 import {Button} from 'mint-ui'
-//import "./mock/mockServer.js"
+import "./mock/mockServer.js"
 
 
 

@@ -36,14 +36,11 @@
 
         <div class="swiper-container">
           <div class="swiper-wrapper">
-            <div class="swiper-slide"><img src="./img/3d300175542f86c213da0afd53f7f08c.jpg" alt=""></div>
-            <div class="swiper-slide"><img src="./img/5ac976683b6b5c51b2865dbc15bca10b.jpg" alt=""></div>
-            <div class="swiper-slide"><img src="./img/12eb5c994d76ea4458b0cdc03fffa593.jpg" alt=""></div>
-            <div class="swiper-slide"><img src="./img/562a03a7cc919126d828397876b0164c.jpg" alt=""></div>
-            <div class="swiper-slide"><img src="./img/529578c5e3c7d9d8e6a14c281ecde1e0.jpg" alt=""></div>
-            <div class="swiper-slide"><img src="./img/cfe8ed06eca142828bacb5e35015770f.jpg" alt=""></div>
-            <div class="swiper-slide"><img src="./img/e00ce7c76ca85291071c81d72e8b6bf4.jpg" alt=""></div>
-            <div class="swiper-slide"><img src="./img/f547c90c7ca41113f880b82806baa006.jpg" alt=""></div>
+            <div class="swiper-slide" v-for="item in msite.focusList">
+              <a :href="item.targetUrl">
+                <img :src="item.picUrl" alt="">
+              </a>
+            </div>
           </div>
           <!-- 如果需要分页器 -->
           <div class="swiper-pagination"></div>
@@ -59,51 +56,113 @@
 
         <div class="shopList">
           <ul>
-            <li>
-              <img src="http://yanxuan.nosdn.127.net/98b6a6fc32f1fea861934816729e2cf5.png" alt="">
-              <span>居家</span>
-            </li>
-            <li>
-              <img src="http://yanxuan.nosdn.127.net/46d33b9a9fbb659fcbac37ec58d51e62.png" alt="">
-              <span>饮食</span>
-            </li>
-            <li>
-              <img src="http://yanxuan.nosdn.127.net/31831ada59dc10319cba195620ed9ed0.png" alt="">
-              <span>音乐</span>
-            </li>
-            <li>
-              <img src="http://yanxuan.nosdn.127.net/45833c71d4b0d0de0755a20f893fa25f.png" alt="">
-              <span>鞋包</span>
-            </li>
-            <li>
-              <img src="http://yanxuan.nosdn.127.net/2fde77529e90a26427d1c02faa3bfbf6.png" alt="">
-              <span>辣鸡</span>
-            </li>
-            <li>
-              <img src="http://yanxuan.nosdn.127.net/15e364ca93313bbd6e87dfcba7ae7b74.png" alt="">
-              <span>废物</span>
-            </li>
-            <li>
-              <img src="http://yanxuan.nosdn.127.net/793bca13bb931475ea7f0c00299362bb.png" alt="">
-              <span>无聊</span>
-            </li>
-            <li>
-              <img src="http://yanxuan.nosdn.127.net/fc3e359da08577228354da61ea912c99.png" alt="">
-              <span>傻逼</span>
-            </li>
-            <li>
-              <img src="http://yanxuan.nosdn.127.net/97eb6fd2c7ea76a3a42b9dafa3bd6543.png" alt="">
-              <span>红牛</span>
-            </li>
-            <li>
-              <img src="http://yanxuan.nosdn.127.net/db5e2ce8c66f7db3f4282ecb24a64236.png" alt="">
-              <span>D&G</span>
+            <li v-for="head in msite.headCateList">
+              <router-link :to="`/shop?id=${head.id}`">
+                <img :src="head.iconUrl" alt="">
+                <span>{{head.name}}</span>
+              </router-link>
             </li>
           </ul>
         </div>
 
-        <img src="https://yanxuan.nosdn.127.net/15435902145614507.gif" alt="" style="width: 100%">
+        <img src="https://yanxuan.nosdn.127.net/15435902145614507.gif" alt="">
+        <div class="photoList">
+          <div class="up">
+            <img src="https://yanxuan.nosdn.127.net/15435902383484509.png" alt="" style="width: 3.75rem">
+            <img src="https://yanxuan.nosdn.127.net/15435902616394510.png" alt="" style="width: 3.75rem">
+            <img src="https://yanxuan.nosdn.127.net/15439064549673720.png" alt="" style="width: 3.75rem">
+          </div>
+          <div class="down">
+            <img src="https://yanxuan.nosdn.127.net/15438955793172733.png" alt="" style="width: 3.75rem">
+            <img src="https://yanxuan.nosdn.127.net/15435903918604513.png" alt="" style="width: 3.75rem">
+          </div>
+        </div>
+
+        <div style="width: 100%;height: 0.2rem;background-color: #F4F4F4;"></div>
+
+        <div class="newPerson">
+          <div class="newGift">-- 新人专享礼 --</div>
+          <div class="newPhoto">
+
+            <div class="left">
+              新人专享礼包
+              <img  class="lingqu" src="//yanxuan.nosdn.127.net/d074d02fb86bff9bfbf4fa3010d1e1e6.png" alt="">
+              <img class="gif" src="//yanxuan.nosdn.127.net/3f7e731c6650bc1770589c78bd5a18b7.png" alt="">
+            </div>
+
+            <div class="right">
+
+              <div class="up">
+                <span style="font-size: 0.32rem">福利社</span>
+                <br>
+                <span style="color: rgb(127, 127, 127)">今日特价</span>
+                <div class="youhui">
+                  <span class="up">¥217</span>
+                  <span class="down">¥299</span>
+                </div>
+                <img src="http://yanxuan.nosdn.127.net/7dd153f648f9ffb70384b5868b132ed1.png" alt="">
+              </div>
+
+              <div class="down">
+                <span style="font-size: 0.32rem">新人拼团</span>
+                <br>
+                <span style="color: rgb(127, 127, 127)">1元起包邮</span>
+                <div class="youhui">
+                  <span class="up">¥21</span>
+                  <span class="down">¥99</span>
+                </div>
+                <img src="http://yanxuan.nosdn.127.net/c95a4d1daa62d7a9004208752a1a2098.png" alt="">
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <div style="width: 100%;height: 0.2rem;background-color: #F4F4F4;"></div>
+        <a href="#top" v-show="isShow"><i class="iconfont icon-shang1"></i></a>
+        <img src="https://yanxuan.nosdn.127.net/a93606fbdd934ed3daed79a7c2c629fe.jpg" alt="">
+        <div class="shopPro">
+          <div class="up">
+            <span>品牌制造商直供</span>
+            <span>更多 > </span>
+          </div>
+          <div class="down">
+            <div class="one"><router-link to="/pro?id=1055007">海外制造商</router-link></div>
+            <div class="two"><router-link to="/pro?id=1026000">CK制造商</router-link></div>
+            <div class="three"><router-link to="/pro?id=1001037">新秀丽制造商</router-link></div>
+            <div class="four"><router-link to="/pro?id=1001000">MUJI制造商</router-link></div>
+          </div>
+
+        </div>
+
+        <div style="width: 100%;height: 0.2rem;background-color: #F4F4F4;"></div>
+        <img src="https://yanxuan.nosdn.127.net/3d300175542f86c213da0afd53f7f08c.jpg" alt="">
+
+        <div class="scrollShop">
+          <div class="BS2">
+            <ul>
+              <li><img src="http://yanxuan.nosdn.127.net/1e5203ccf607c0136f06af2b09c15e34.png?imageView&quality=65&thumbnail=330x330" alt="">便携式吹风机<br>¥ 90<br><span>福利价</span></li>
+              <li><img src="http://yanxuan.nosdn.127.net/1e5203ccf607c0136f06af2b09c15e34.png?imageView&quality=65&thumbnail=330x330" alt="">便携式吹风机<br>¥ 90<br><span>福利价</span></li>
+              <li><img src="http://yanxuan.nosdn.127.net/1e5203ccf607c0136f06af2b09c15e34.png?imageView&quality=65&thumbnail=330x330" alt="">便携式吹风机<br>¥ 90<br><span>福利价</span></li>
+              <li><img src="http://yanxuan.nosdn.127.net/1e5203ccf607c0136f06af2b09c15e34.png?imageView&quality=65&thumbnail=330x330" alt="">便携式吹风机<br>¥ 90<br><span>福利价</span></li>
+              <li><img src="http://yanxuan.nosdn.127.net/1e5203ccf607c0136f06af2b09c15e34.png?imageView&quality=65&thumbnail=330x330" alt="">便携式吹风机<br>¥ 90<br><span>福利价</span></li>
+              <li><img src="http://yanxuan.nosdn.127.net/1e5203ccf607c0136f06af2b09c15e34.png?imageView&quality=65&thumbnail=330x330" alt="">便携式吹风机<br>¥ 90<br><span>福利价</span></li>
+              <li><img src="http://yanxuan.nosdn.127.net/1e5203ccf607c0136f06af2b09c15e34.png?imageView&quality=65&thumbnail=330x330" alt="">便携式吹风机<br>¥ 90<br><span>福利价</span></li>
+              <li><img src="http://yanxuan.nosdn.127.net/1e5203ccf607c0136f06af2b09c15e34.png?imageView&quality=65&thumbnail=330x330" alt="">便携式吹风机<br>¥ 90<br><span>福利价</span></li>
+              <li>查看更多</li>
+            </ul>
+          </div>
+
+        </div>
+
+        <div class="footer">
+            <span>下载APP</span>
+            <span>电脑版</span>
+            <p>网易公司版权所有 © 1997-2018</p>
+            <p style="margin-top: .1rem">食品经营许可证：JY13301080111719</p>
+        </div>
       </div>
+
     </div>
 </template>
 
@@ -111,27 +170,42 @@
   import BS from "better-scroll";
   import Swiper from "swiper";
   import "swiper/dist/css/swiper.min.css"
+  import {mapState} from "vuex"
   export default {
     name: "Msite",
+    computed:{
+      isShow(){
+        return true
+      },
+
+      ...mapState(["msite"])
+    },
     components:{
-      
     },
     mounted(){
       new BS(".BS",{
         click: true,
         scrollX: true,
       });
-      new Swiper(".swiper-container",{
-        effect : "slide",
-        direction: 'horizontal',
-        loop: true, // 循环模式选项
-        autoplay: {
-          disableOnInteraction : false,
-        },
-        pagination: {
-          el: '.swiper-pagination',
-          type: 'bullets',
-        },
+      new BS(".BS2",{
+        click: true,
+        scrollX: true,
+      });
+      this.$store.dispatch("reqM",()=>{
+        this.$nextTick(()=>{
+          new Swiper(".swiper-container",{
+            effect : "slide",
+            direction: 'horizontal',
+            loop: true, // 循环模式选项
+            autoplay: {
+              disableOnInteraction : false,
+            },
+            pagination: {
+              el: '.swiper-pagination',
+              type: 'bullets',
+            },
+          })
+        })
       })
     }
   }
@@ -141,6 +215,7 @@
     width: 100%
     font-size 0.24rem
     overflow hidden
+    margin-bottom:1.1rem
     .search
       display flex
       align-items: center;
@@ -150,7 +225,7 @@
       position: fixed;
       top: 0
       left: 0
-      z-index: 2;
+      z-index: 99;
       height: 0.9rem
       line-height 0.9rem
       width: 100%
@@ -197,6 +272,9 @@
     .minWrap
       width: 100%
       margin-top 0.9rem
+      > img{
+        width: 100%
+      }
       .scrollNav
         width: 100%
         height: 0.6rem
@@ -227,7 +305,7 @@
             width: 1.5rem
             height: 0.6rem
             background-color: white
-            z-index 99
+            z-index 9
             position absolute
             top: 0
             right: 0
@@ -283,15 +361,303 @@
           li{
             width: 1.5rem
             height: 1.95rem
-            display flex
-            justify-content space-evenly
-            align-items center
-            flex-direction column
-            color rgb(51,51,51)
-            img{
-              width: 1.1rem
-              height: 1.1rem
+            a{
+              width: 1.5rem
+              height: 1.95rem
+              display flex
+              justify-content space-evenly
+              align-items center
+              flex-direction column
+              color rgb(51,51,51)
+              img{
+                width: 1.1rem
+                height: 1.1rem
+              }
             }
+
+          }
+        }
+      }
+
+      .photoList{
+        margin-top: -0.1rem
+        width: 100%
+        height: 6.15rem
+        background-color: rgb(180, 40, 45)
+        .up{
+          height: 4rem
+          width: 100%
+          img{
+            float: left
+          }
+        }
+        .down{
+          width: 100%
+          height: 2rem
+          img{
+            float: left
+          }
+        }
+      }
+      .newPerson{
+        width: 100%
+        height:5.3rem
+        .newGift{
+          font-size 0.32rem
+          color rgb(51,51,51)
+          width: 100%
+          height: 0.9rem
+          text-align: center
+          line-height:0.9rem
+        }
+        .left{
+          width: 3.43rem
+          height: 4.34rem
+          background-color: rgb(249, 233, 207)
+          float: left
+          margin-left:0.33rem
+          position: relative
+          box-sizing border-box
+          padding 0.3rem
+          font-size 0.32rem
+          color rgb(51,51,51)
+          .gif{
+            position: absolute
+            z-index 7
+            width: 0.3rem
+            height: 0.2rem
+            top: 2.915rem
+            right: 1.05rem
+          }
+          .lingqu{
+            position: absolute
+            left: 0
+            right: 0
+            top: 0
+            bottom: 0
+            margin auto
+            width: 2.28rem
+            height: 2.28rem
+          }
+        }
+        .right{
+          width: 3.43rem
+          height: 4.34rem
+          background-color: rgb(249, 233, 207)
+          float: left
+          box-sizing border-box
+          border-left 0.04rem solid white
+          > .up{
+            width: 100%
+            height: 2.15rem
+            border-bottom 0.04rem solid white
+            box-sizing border-box
+            padding 0.3rem 0 0 0.3rem
+            position: relative
+            .youhui{
+              position: absolute
+              z-index 10
+              width: 0.8rem
+              height: 0.8rem
+              background-color: rgb(245, 149, 36)
+              border-radius 50%
+              top: .2rem
+              right: .2rem
+              text-align center
+              box-sizing border-box
+              padding-top 0.2rem
+              color white
+              font-size 0.24rem
+
+              .down{
+                text-decoration-line: line-through
+              }
+            }
+            img{
+              position: absolute
+              right: 0
+              top: 0.08rem
+              width: 2rem
+              height: 2rem
+              box-sizing border-box
+            }
+          }
+          > .down{
+            width: 100%
+            height: 2.15rem
+            box-sizing border-box
+            padding 0.3rem 0 0 0.3rem
+            position: relative
+            .youhui{
+              position: absolute
+              z-index 10
+              width: 0.8rem
+              height: 0.8rem
+              background-color: rgb(245, 149, 36)
+              border-radius 50%
+              top: .2rem
+              right: .2rem
+              text-align center
+              box-sizing border-box
+              padding-top 0.2rem
+              color white
+              font-size 0.24rem
+
+              .down{
+                text-decoration-line: line-through
+              }
+            }
+            img{
+              position: absolute
+              right: 0
+              top: 0.08rem
+              width: 2rem
+              height: 2rem
+              box-sizing border-box
+            }
+          }
+        }
+      }
+
+      > a{
+        display block
+        width: 0.8rem
+        height: 0.8rem
+        text-align: center
+        line-height 0.8rem
+        border-radius 50%
+        background-color: whitesmoke
+        position: fixed
+        z-index 999
+        right: 0.25rem
+        bottom: 1.25rem
+        i{
+          font-size 0.3rem
+        }
+      }
+
+      .shopPro{
+        width: 100%
+        height: 6.6rem
+        > .up{
+          box-sizing border-box
+          padding 0 .3rem 0 .3rem
+          width: 100%
+          height: 1rem
+          display flex
+          justify-content space-between
+          align-items center
+          font-size 0.32rem
+          color rgb(51,51,51)
+        }
+        > .down{
+          width: 100%
+          height: 5.6rem
+          box-sizing border-box
+          padding 0 .3rem 0 .3rem
+          display flex
+          align-items center
+          justify-content space-around
+          flex-wrap wrap
+          div{
+            box-sizing border-box
+            text-align: center
+            padding-top:0.3rem
+            font-size 0.28rem
+            color rgb(51, 51, 51)
+          }
+          .one{
+            width: 3.4rem
+            height: 2.6rem
+            background-image url(http://yanxuan.nosdn.127.net/802ff06dd3ef161db046eeb8db6cb4be.jpg?imageView&thumbnail=343y260&enlarge=1)
+            background-size cover
+          }
+          .two{
+            width: 3.4rem
+            height: 2.6rem
+            background-image url(http://yanxuan.nosdn.127.net/c1e97be1b9730360c9c228b6a6448bca.png?imageView&thumbnail=343y260&enlarge=1)
+            background-size cover
+          }
+          .three{
+            width: 3.4rem
+            height: 2.6rem
+            background-image url(http://yanxuan.nosdn.127.net/e550a44d2a7a68ed38e6cfd380e514aa.png?imageView&thumbnail=343y260&enlarge=1)
+            background-size cover
+          }
+          .four{
+            width: 3.4rem
+            height: 2.6rem
+            background-image url(http://yanxuan.nosdn.127.net/053ecfefd033a9acd2cb95483e14fcb6.jpg?imageView&thumbnail=343y260&enlarge=1)
+            background-size cover
+          }
+        }
+      }
+
+      .scrollShop{
+        width: 100%
+        height: 3.88rem
+        padding 0.3rem .3rem .3rem .3rem
+        box-sizing border-box
+        > .BS2{
+          width: 6.9rem
+          ul{
+            width: 19.8rem
+            height: 3.88rem
+            li{
+              width: 2rem
+              margin-right: 0.2rem
+              float: left
+              text-align: center
+              color rgb(51, 51, 51)
+              background-color: rgb(244, 244, 244)
+              &:last-child{
+                text-align: center
+                line-height 2rem
+                height: 2rem
+                font-size 0.32rem
+              }
+              img{
+                width: 2rem
+                height: 2rem
+              }
+              span{
+                display inline-block
+                width: 1.32rem
+                height: 0.25rem
+                background-color: orange
+              }
+            }
+          }
+        }
+      }
+      .footer{
+        width: 100%
+        height: 2.45rem
+        background-color: rgb(51, 51, 51)
+        color white
+        text-align: center
+        padding .54rem .2rem .28rem .2rem
+        box-sizing border-box
+        p{
+          color rgb(153, 153, 153)
+        }
+        span{
+          &:nth-child(1){
+            display inline-block
+            width: 1.71rem
+            height: .62rem
+            border: 0.005rem solid white
+            line-height .62rem
+            margin-right:.25rem
+          }
+          &:nth-child(2){
+            display inline-block
+            width: 1.71rem
+            height: .62rem
+            border: 0.005rem solid white
+            line-height .62rem
+            margin-left:.25rem
+            margin-bottom:.36rem
           }
         }
       }

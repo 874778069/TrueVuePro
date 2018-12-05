@@ -1,5 +1,5 @@
 <template>
-    <footer class="footer_guide border-1px">
+    <footer class="footer_guide border-1px" v-if="$route.meta.isShow">
         <span href="javascript:;" class="guide_item" :class="{on:$route.path==='/msite'}" @click="handleC('/msite')">
             <span class="item_icon">
                 <i class="icon icon_home"></i>
@@ -48,6 +48,7 @@ export default {
 @import '../../common/mixins.styl';
 
 .footer_guide { // footer
+    font-size 0.24rem
     top-border-1px(#e4e4e4);
     position: fixed;
     z-index: 100;
@@ -91,7 +92,7 @@ export default {
         }
 
         span {
-            font-size: 0.12rem;
+
             margin-bottom: 0.02rem;
 
 
