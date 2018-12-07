@@ -8,7 +8,6 @@
       </div>
       <img :src="imgU" alt="">
       <div style="width: 100%;height: 0.2rem;background-color: #F4F4F4;"></div>
-
     </div>
 </template>
 

@@ -119,7 +119,7 @@
         </div>
 
         <div style="width: 100%;height: 0.2rem;background-color: #F4F4F4;"></div>
-        <a href="#top" v-show="isShow"><i class="iconfont icon-shang1"></i></a>
+        <a href="#" v-show="isShow"><i class="iconfont icon-shang1"></i></a>
         <img src="https://yanxuan.nosdn.127.net/a93606fbdd934ed3daed79a7c2c629fe.jpg" alt="">
         <div class="shopPro">
           <div class="up">
@@ -206,7 +206,7 @@
             },
           })
         })
-      })
+      });
     }
   }
 </script>

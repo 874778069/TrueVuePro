@@ -32,7 +32,9 @@ footer, header, menu, nav, section {
 body {
   line-height: 1;
 }
-
+*{
+  box-sizing: border-box;
+}
 blockquote, q {
   quotes: none;
 }

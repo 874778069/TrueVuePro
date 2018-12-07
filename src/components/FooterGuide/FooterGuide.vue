@@ -6,7 +6,7 @@
             </span>
             <span>首页</span>
         </span>
-        <span href="javascript:;" class="guide_item" :class="{on:$route.path==='/classify'}" @click="handleC('/classify')">
+        <span href="javascript:;" class="guide_item" :class="{on:$route.path==='/classify'}" @click="handleC('/classify?id=109230000')">
             <span class="item_icon">
                 <i class="icon icon_classify"></i>
             </span>
@@ -51,7 +51,7 @@ export default {
     font-size 0.24rem
     top-border-1px(#e4e4e4);
     position: fixed;
-    z-index: 100;
+    z-index: 9999;
     left: 0;
     right: 0;
     bottom: 0;
