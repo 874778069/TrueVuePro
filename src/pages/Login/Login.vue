@@ -21,18 +21,19 @@
           </div>
         </div>
       </div>
-      <div style="height: 623px;" class="loginTypesWrap">
+
+      <div style="height: 623px;" v-show="home" class="loginTypesWrap" >
         <div class="m-loginTypes">
           <div class="cont">
             <div class="logoWrap">
               <img src="//yanxuan.nosdn.127.net/bd139d2c42205f749cd4ab78fa3d6c60.png">
             </div>
             <div class="btnWrap">
-              <div class="w-button w-button-xl w-button-block">
+              <div class="w-button w-button-xl w-button-block" @click="handleC(true,false,false)">
                 <i class="u-icon u-icon-loginPhone"></i>
                 <span>手机号码登录</span>
               </div>
-              <div class="w-button w-button-xl w-button-block w-button-ghostRed">
+              <div class="w-button w-button-xl w-button-block w-button-ghostRed" @click="handleC(false,false,true)">
                 <i class="u-icon u-icon-loginMail"></i>
                 <span>用户账号登录</span>
               </div>
@@ -65,25 +66,159 @@
           </div>
         </div>
       </div>
+
+      <div class="loginWrap loginWrap-1" v-show="isPhone">
+        <div class="view">
+          <div id="logo1">
+            <img src="//yanxuan.nosdn.127.net/bd139d2c42205f749cd4ab78fa3d6c60.png">
+            <div id="loginPhone">
+              <div class="phone">
+                <input type="text" maxlength="11" placeholder="请输入手机号" v-model="phone">
+              </div>
+              <div class="code">
+                <input type="text" placeholder="请输入验证码" v-model="code">
+                <button @click="sendCode" :class="{on : isPhoneNum}" :disabled="isPhoneNum || time > 0">{{time > 0 ? `已发送${time}s` : "获取验证码"}}</button>
+              </div>
+              <div class="denglu" @click="codeLogin">
+                登录
+              </div>
+            </div>
+          </div>
+          </div>
+          <div class="foot">
+            <div class="w-button w-button-xl w-button-block w-button-ghostRed" @click="handleC(false,true,false)"><span>其他登录方式</span>
+            </div>
+            <div class="btn btn-1" ><span>注册帐号</span><i class="u-icon u-icon-arrow-right3" ></i>
+            </div>
+          </div>
+        </div>
+
+      <div class="loginWrap loginWrap-1" v-show="isUser">
+        <div class="view">
+          <div id="logo2">
+            <img src="//yanxuan.nosdn.127.net/bd139d2c42205f749cd4ab78fa3d6c60.png">
+            <div id="username">
+              <div class="name">
+                <input type="text" placeholder="请输入用户名" v-model="username">
+              </div>
+              <div class="code">
+                <input type="password" placeholder="请输入密码" v-model="pwd">
+              </div>
+              <div class="denglu" @click="userPwd">
+                登录
+              </div>
+            </div>
+          </div>
+          </div>
+          <div class="foot">
+            <div class="w-button w-button-xl w-button-block w-button-ghostRed" @click="handleC(false,true,false)"><span>其他登录方式</span>
+            </div>
+            <div class="btn btn-1" ><span>注册帐号</span><i class="u-icon u-icon-arrow-right3" ></i>
+            </div>
+          </div>
+        </div>
+
+
     </div>
-  </div>
+
+
+
+    </div>
 </template>
 
 <script>
-
-
+  import {reqUserLogin,reqCodeLogin,reqCode} from "./../../api/index.js";
+  import {MessageBox,Toast} from "mint-ui"
   export default {
+    data(){
+      return{
+        home:true,
+        isPhone:false,
+        isUser:false,
+        phone:"",
+        pwd : "",
+        username:"",
+        code:"",
+        time : 0
+      }
+    },
+    computed:{
+      isPhoneNum(){
+        return !/^1\d{10}$/.test(this.phone)
+      }
+    },
 
     methods:{
-      //跳转购物车路由
       shopping(){
         this.$router.push('/shiwu')
       },
-      //跳转首页路由
       homeage(){
         this.$router.push('/msite')
+      },
+      handleC(isPhone,home,isUser){
+        this.isPhone = isPhone
+        this.home = home
+        this.isUser = isUser
+      },
+
+      async userPwd(){
+        const {username,pwd} = this;
+        if (!username){
+          return MessageBox.alert("必须输入用户名")
+        } else if(!pwd){
+          return MessageBox.alert("密码不能为空")
+        }
+
+        const result = await reqUserLogin(this.username,this.pwd)
+        if (result.code == 0){
+          this.$store.commit("changeUser",{user:result.data,cb:()=>{
+              this.$router.replace("/profile")
+            }});
+
+        }else {
+          MessageBox.alert(result.msg)
+        }
+      },
+
+      async sendCode(){
+        this.time = 30;
+        const result = await reqCode(this.phone);
+        if (result.code == 0){
+          Toast("验证码发送成功");
+          var timer = setInterval(()=>{
+            this.time--;
+            if(this.time==0) {
+              clearInterval(timer)
+            }
+          },1000)
+        }else {
+          this.time = 0
+          MessageBox.alert(result.msg)
+        }
+
+      },
+
+      async codeLogin(){
+        const {code,isPhoneNum} = this;
+        if(isPhoneNum){
+          return MessageBox.alert("手机号码必须11位")
+        }else if(!/^\d{6}$/.test(code)){
+          return MessageBox.alert("验证码必须6位")
+        }
+
+        const result = await reqCodeLogin(this.phone,this.code);
+        if (result.code == 0){
+          this.$store.commit("changeUser",{user:result.data,cb:()=>{
+              this.time = 0;
+              this.$router.replace("/profile")
+            }});
+        }else {
+          MessageBox.alert(result.msg)
+        }
       }
     },
+
+
     beforeRouteLeave:(to, from,next) =>{
       var size = (window.innerWidth || document.documentElement.clientWidth) / 750 * 100;
       document.documentElement.style.fontSize = size + "px";
@@ -91,10 +226,7 @@
       next();
     }
   }
-
-
 </script>
-
 <style lang="stylus" rel="stylesheet/stylus" scoped>
   @import "../../common/mixins.styl"
   .m-hd {
@@ -310,6 +442,9 @@
     bottom: 1.06667rem;
     height: .53333rem;
     text-align: center;
+    .itemWrap:nth-child(3){
+      border-right: 0px solid #979797 !important;
+    }
   }
   .m-loginTypes .thirdWrap .itemWrap {
     height: .53333rem;
@@ -349,5 +484,156 @@
     background url("./images/3.png")
     background-size: 98%;
   }
+  .loginWrap .logo {
+    text-align: center;
+    margin-top: .74667rem;
+    margin-bottom: 0;
+  }
+  .loginWrap .foot {
+    padding: 0 .53333rem;
+  }
+  .loginWrap .btn-1 {
+    margin-top: .42667rem;
+  }
+  .loginWrap .btn span {
+    font-size: .37333rem;
+    line-height: .53333rem;
+    color: #333;
+  }
+  .loginWrap .btn {
+    text-align: center;
+  }
+  .loginWrap .logo img {
+    width: 2.56rem;
+    height: .85333rem;
+  }
+  .loginWrap .logo[data-v-2a2af8af] {
+    text-align: center;
+    margin-top: 0.74667rem;
+    margin-bottom: 0;
+  }
+  #logo1{
+    width: 90%
+    margin-left: 5%
+    vertical-align: middle;
+    height: 9.18rem
+    display flex
+    flex-direction column
+    justify-content space-between
+    align-items center
+    flex-wrap wrap
+    padding-top 1.3rem
+    font-size .36rem
+    margin-bottom 0.2rem
+    img{
+      width: 2.56rem;
+      height: .85333rem;
+    }
+    #loginPhone{
+      width: 100%
+      height: 5rem
+      display flex
+      flex-direction column
+      justify-content space-around
+      .phone{
+        width: 100%
+        height 25%
+        display flex
+        align-items center
+        bottom-border-1px(gray)
+        input{
+          width: 90%
+          height: 90%
+          outline:none
+        }
+      }
+      .code{
+        width: 100%
+        height 25%
+        display flex
+        justify-content space-around
+        align-items center
+        bottom-border-1px(gray)
+        input{
+          width: 75%
+          height: 90%
+          outline:none
+        }
+        button{
+          height: 90%
+          border: 0 solid #000
+          background-color: white
+          &.on{
+            color gray
+          }
+        }
 
+      }
+      .denglu{
+        width: 100%
+        height: 25%
+        background-color: #b4282d
+        text-align: center;
+        line-height 1.2rem
+        color white
+      }
+    }
+  }
+  #logo2{
+    width: 90%
+    margin-left: 5%
+    vertical-align: middle;
+    height: 9.18rem
+    display flex
+    flex-direction column
+    justify-content space-between
+    align-items center
+    flex-wrap wrap
+    padding-top 1.3rem
+    font-size .36rem
+    margin-bottom 0.2rem
+    img{
+      width: 2.56rem;
+      height: .85333rem;
+    }
+    #username{
+      width: 100%
+      height: 5rem
+      display flex
+      flex-direction column
+      justify-content space-around
+      .name{
+        width: 100%
+        height 25%
+        display flex
+        align-items center
+        bottom-border-1px(gray)
+        input{
+          width: 90%
+          height: 90%
+          outline:none
+        }
+      }
+      .code{
+        width: 100%
+        height 25%
+        display flex
+        align-items center
+        bottom-border-1px(gray)
+        input{
+          width: 90%
+          height: 90%
+          outline:none
+        }
+      }
+      .denglu{
+        width: 100%
+        height: 25%
+        background-color: #b4282d
+        text-align: center;
+        line-height 1.2rem
+        color white
+      }
+    }
+  }
 </style>

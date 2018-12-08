@@ -4,6 +4,7 @@
 返回值是promise对象
  */
 import axios from 'axios'
+import qs from 'qs'
 
 export default function ajax(url, data={}, method='GET') {
 
@@ -26,7 +27,7 @@ export default function ajax(url, data={}, method='GET') {
       promise = axios.get(url) // url?username=tom&password=123
       // return axios.get(url, {params: data}) // url?username=tom&password=123
     } else {
-      promise = axios.post(url, data)
+      promise = axios.post(url, qs.stringify(data))
     }
 
     promise.then(response => {

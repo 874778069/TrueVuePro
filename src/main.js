@@ -11,7 +11,7 @@ import "./mock/mockServer.js"
 
 Vue.config.productionTip = false;
 Vue.component(Button.name, Button); // <mt-button/>
-
+Vue.store=store;
 
 
 

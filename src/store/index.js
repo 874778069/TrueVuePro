@@ -1,6 +1,17 @@
 import Vue from "vue"
 import Vuex from "vuex"
-import {reqMsite,reqCategory,reqShiWuArr,reqNewData,reqDaRen,reqHome} from "./../api/index";
+import {reqMsite,
+  reqCategory,
+  reqShiWuArr,
+  reqNewData,
+  reqDaRen,
+  reqHome,
+  reqLoginOut,
+  reqUserData,
+  reqSearchInit,
+  reqSearchArr
+} from "./../api/index";
+
 
 Vue.use(Vuex);
 
@@ -11,7 +22,10 @@ export default new Vuex.Store({
     shiWuArr : [],
     newData : [],
     daRen : [],
-    homes:[]
+    homes:[],
+    user:{},
+    searchInit:{},
+    searchArr : []
   },
 
 
@@ -33,6 +47,19 @@ export default new Vuex.Store({
     },
     changeHome(state,arr){
       state.homes = arr
+    },
+    changeUser(state,{user,cb}){
+      state.user = user;
+      cb && cb()
+    },
+    changeOut(state){
+      state.user = {};
+    },
+    changeSearchInit(state,obj){
+      state.searchInit = obj
+    },
+    changeSearchArr(state,arr){
+      state.searchArr = arr
     }
   },
 
@@ -44,14 +71,12 @@ export default new Vuex.Store({
         cb && cb()
       }
     },
-
     async reqC({commit}){
       const result = await reqCategory();
       if(result.code == 0){
         commit("changeCate",result.data)
       }
     },
-
     async reqSA({commit}){
       const result = await reqShiWuArr();
       if(result.code == 0){
@@ -74,6 +99,30 @@ export default new Vuex.Store({
       const result = await reqHome();
       if(result.code == 0){
         commit("changeHome",result.data)
+      }
+    },
+    async reqLO({commit}){
+      const result = await reqLoginOut();
+      if(result.code == 0){
+        commit("changeOut")
+      }
+    },
+    async reqUD({commit}){
+      const result = await reqUserData();
+      if(result.code == 0){
+        commit("changeUser",{user : result.data})
+      }
+    },
+    async reqSI({commit}){
+      const result = await reqSearchInit();
+      if(result.code == 200){
+        commit("changeSearchInit",result.data)
+      }
+    },
+    async reqSArr({commit},key){
+      const result = await reqSearchArr(key);
+      if(result.code == 200){
+        commit("changeSearchArr",result.data)
       }
     },
   }

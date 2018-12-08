@@ -1,15 +1,17 @@
 <template>
-  <div class="m-tpls m-tpls-new"  v-if="obj">
+  <div class="m-tpls m-tpls-new">
     <a :href="obj.schemeUrl">
       <div class="title">{{obj.title}}</div>
       <div class="content">{{obj.subTitle}}</div>
     </a>
     <ul class="m-gplist">
-      <li v-for="(item,index) in obj.itemList" :key="index">
+      <li v-for="item in obj.itemList" v-if="item">
         <img :src="item.itemUrl" alt="" width="100%" height="100%">
       </li>
     </ul>
-    <div class="u-rcount"><i class="ico"></i><span>{{obj.readCount}}人看过</span>
+    <div class="u-rcount">
+      <i class="ico"></i>
+      <span>{{(obj.readCount/1000).toFixed(1)}}k人看过</span>
     </div>
   </div>
 </template>
@@ -17,10 +19,7 @@
 <script>
   export default {
     props:["obj"],
-    name: 'newCom',
-    mounted(){
-      console.log(this.obj)
-    }
+    name: 'newCom'
   }
 </script>
 

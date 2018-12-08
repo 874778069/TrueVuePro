@@ -2,7 +2,7 @@
     <div class="wrap" v-if="category.length>0">
 
       <div class="header">
-        <div class="sreachInput">
+        <div class="sreachInput" @click="$router.push('/search')">
           <i></i>
           <span>搜索商品,共19932款好物</span>
         </div>

@@ -7,6 +7,16 @@ import ajax from './ajax'
 // const BASE = 'http://localhost:5000'
 const BASE = '/api';
 //const BASE = ''; //打包
+const wangYi = "/163"
+
+export const reqUserLogin = (name,pwd) => ajax(BASE + "/login_pwd",{name,pwd},"POST")
+export const reqCodeLogin = (phone,code) => ajax(BASE + "/login_sms",{phone,code},"POST")
+export const reqCode = (phone) => ajax(BASE + "/sendcode",{phone},"GET");
+export const reqLoginOut = () => ajax(BASE + "/logout");
+export const reqUserData = () => ajax(BASE + "/userinfo");
+
+export const reqSearchInit = () => ajax(wangYi + "/xhr/search/init.json")
+export const reqSearchArr = (keywordPrefix) => ajax(wangYi + "/xhr/search/searchAutoComplete.json",{keywordPrefix},"POST")
 
 export const reqMsite = () => ajax("/msite");
 export const reqCategory = () => ajax("/classify");

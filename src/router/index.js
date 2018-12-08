@@ -18,6 +18,7 @@ import daren from "./../pages/shiwu/daren/daren.vue"
 import New from "./../pages/shiwu/new/new.vue"
 import shaidan from "./../pages/shiwu/shaidan/shaidan.vue"
 import home from "./../pages/shiwu/home/home.vue"
+import search from "./../pages/search/search.vue"
 
 import shop from "./../pages/shop/shop.vue"
 import pro from "./../pages/pro/pro.vue"
@@ -30,7 +31,18 @@ export default new Router({
   linkExactActiveClass:"active",
   routes: [
     {path:"/msite",component:msite, meta: {isShow: true}},
-    {path:"/profile",component:profile, meta: {isShow: true}},
+    {
+      path:"/profile",
+      component:profile,
+      meta: {isShow: true},
+      beforeEnter:(to,from,next) => {
+        if(JSON.stringify(Vue.store.state.user)!=="{}"){
+          next()
+        }else{
+          next("/login")
+        }
+      }
+    },
     {path:"/classify",component:classify, meta: {isShow: true}},
     {
       path:"/shiwu",component:shiwu,
@@ -60,6 +72,7 @@ export default new Router({
       }},
     {path:"/shop",component:shop},
     {path:"/pro",component:pro},
+    {path:"/search",component:search},
     {path:"/",redirect:"/msite"},
     {path:"/*",component:notFound},
   ]

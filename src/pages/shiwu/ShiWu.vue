@@ -3,7 +3,7 @@
       <div class="header">
         <span @click="$router.push('/msite')"></span>
         <span>发现</span>
-        <span></span>
+        <span @click="$router.push('/search')"></span>
         <span></span>
       </div>
       <div class="nav">

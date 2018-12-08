@@ -3,7 +3,7 @@
       <div class="top">
         <span @click="$router.push('/msite')"></span>
         <span></span>
-        <span></span>
+        <span @click="$router.push('/search')"></span>
         <span></span>
       </div>
       <img :src="imgU" alt="">

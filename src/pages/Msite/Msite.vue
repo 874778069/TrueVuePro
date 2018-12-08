@@ -4,11 +4,11 @@
       <div class="search">
         <a href="javascript:;">
         </a>
-        <div class="sreachInput">
+        <div class="sreachInput" @click="$router.push('/search')">
           <i></i>
           <span>搜索商品,共19932款好物</span>
         </div>
-        <span class="login">登录</span>
+        <span class="login" @click="$router.push('/profile')">{{user._id ? "已登录" : "登录"}}</span>
       </div>
 
       <div class="minWrap">
@@ -30,7 +30,7 @@
             </ul>
           </div>
           <div class="down">
-            <span></span>
+            <span @click="isShowL = !isShowL" ref="span"></span>
           </div>
         </div>
 
@@ -119,7 +119,11 @@
         </div>
 
         <div style="width: 100%;height: 0.2rem;background-color: #F4F4F4;"></div>
-        <a href="#" v-show="isShow"><i class="iconfont icon-shang1"></i></a>
+
+        <a href="#" v-show="isShow">
+          <i class="iconfont icon-shang1"></i>
+        </a>
+
         <img src="https://yanxuan.nosdn.127.net/a93606fbdd934ed3daed79a7c2c629fe.jpg" alt="">
         <div class="shopPro">
           <div class="up">
@@ -161,6 +165,28 @@
             <p>网易公司版权所有 © 1997-2018</p>
             <p style="margin-top: .1rem">食品经营许可证：JY13301080111719</p>
         </div>
+
+        <div class="mask" v-show="isShowL">
+          <div class="content">
+            <div class="minHeader">全部频道
+              <i @click="isShowList" ref="i"></i>
+            </div>
+            <ul>
+              <li>推荐</li>
+              <li>饮食</li>
+              <li>音乐</li>
+              <li>鞋包</li>
+              <li>辣鸡</li>
+              <li>废物</li>
+              <li>无聊</li>
+              <li>傻逼</li>
+              <li>红牛</li>
+              <li>D&G</li>
+              <li>特色区</li>
+            </ul>
+          </div>
+          <div class="cover" @click="isShowList"></div>
+        </div>
       </div>
 
     </div>
@@ -173,12 +199,17 @@
   import {mapState} from "vuex"
   export default {
     name: "Msite",
+    data(){
+      return{
+        isShowL : false
+      }
+    },
     computed:{
       isShow(){
         return true
       },
 
-      ...mapState(["msite"])
+      ...mapState(["msite","user"])
     },
     components:{
     },
@@ -207,6 +238,23 @@
           })
         })
       });
+    },
+    methods:{
+      isShowList(){
+        this.isShowL = !this.isShowL
+      }
+    },
+    watch:{
+      isShowL(newV,oldV){
+        if(newV){
+          this.$refs.i.style.transform = "rotateZ(540deg)"
+          this.$refs.span.style.transform = "rotateZ(180deg)"
+        }
+        if(oldV){
+          this.$refs.i.style.transform = "rotateZ(540deg)"
+          this.$refs.span.style.transform = "rotateZ(360deg)"
+        }
+      }
     }
   }
 </script>
@@ -317,6 +365,8 @@
               height: 0.3rem
               background-image: url(//yanxuan-static.nosdn.127.net/hxm/yanxuan-wap/p/20161201/style/img/icon-normal/arrow-down-3-a6045aadfd.png);
               background-size cover
+              transform rotateZ(0deg)
+              transition .8s
             }
         }
 
@@ -659,6 +709,64 @@
             margin-left:.25rem
             margin-bottom:.36rem
           }
+        }
+      }
+
+      .mask{
+        width: 100%
+        height: 100%
+        position: absolute
+        top: 0.9rem
+        z-index 999999
+        .content{
+          width: 100%
+          height: 3.72rem
+          background-color: white
+          .minHeader{
+            width: 100%
+            height: 0.6rem
+            margin-bottom:0.24rem
+            font-size .34rem
+            line-height .6rem
+            padding-left:.3rem
+            padding-right:.6rem
+            display flex
+            justify-content space-between
+            align-items center
+            i{
+              display inline-block
+              width: 0.3rem
+              height: 0.3rem
+              background-image: url(//yanxuan-static.nosdn.127.net/hxm/yanxuan-wap/p/20161201/style/img/icon-normal/arrow-down-3-a6045aadfd.png);
+              background-size cover
+              transform rotateZ(180deg)
+              transition transform .8s
+            }
+          }
+          ul{
+            width: 100%
+            height: calc(100%-.6rem)
+            padding-left:.3rem
+            padding-right:.3rem
+            display flex
+            flex-wrap wrap
+            justify-content space-between
+            li{
+              width: 1.5rem
+              height: .56rem
+              border: 0.01rem solid gray
+              text-align: center
+              margin-bottom:.4rem
+              line-height .56rem
+            }
+
+          }
+        }
+
+        .cover{
+          width: 100%
+          height: 9rem
+          background-color: rgba(0,0,0,.8)
         }
       }
 </style>

@@ -13,7 +13,7 @@ export default {
     FooterGuide
   },
   mounted(){
-
+    this.$store.dispatch("reqUD");
   }
 }
 </script>

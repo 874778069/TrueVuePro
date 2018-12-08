@@ -12,7 +12,7 @@
             </span>
             <span>分类</span>
             </span>
-        <span href="javascript:;" class="guide_item" :class="{on:$route.path==='/shiwu'}" @click="handleC('/shiwu')">
+        <span href="javascript:;" class="guide_item" :class="{on:isShiWu}" @click="handleC('/shiwu')">
             <span class="item_icon">
                 <i class="icon icon_topic" :class="{on:$route.path==='/shiwu'}"></i>
             </span>
@@ -24,7 +24,7 @@
             </span>
             <span>购物车</span>
         </span>
-        <span href="javascript:;" class="guide_item" :class="{on:$route.path==='/login'}" @click="handleC('/login')">
+        <span href="javascript:;" class="guide_item" :class="{on:$route.path==='/profile'}" @click="handleC('/profile')">
             <span class="item_icon">
                 <i class="icon icon_login"></i>
             </span>
@@ -36,6 +36,11 @@
 <script>
 export default {
   name:"FooterGuide",
+  computed:{
+    isShiWu(){
+      return /shiwu/.test(this.$route.path)
+    }
+  },
   methods: {
     handleC(path) {
       this.$router.replace(path);
