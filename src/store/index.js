@@ -1,6 +1,7 @@
 import Vue from "vue"
 import Vuex from "vuex"
-import {reqMsite,
+import {
+  reqMsite,
   reqCategory,
   reqShiWuArr,
   reqNewData,
@@ -9,7 +10,8 @@ import {reqMsite,
   reqLoginOut,
   reqUserData,
   reqSearchInit,
-  reqSearchArr
+  reqSearchArr,
+  reqKeyContent
 } from "./../api/index";
 
 
@@ -25,7 +27,8 @@ export default new Vuex.Store({
     homes:[],
     user:{},
     searchInit:{},
-    searchArr : []
+    searchArr : [],
+    keyContent:{}
   },
 
 
@@ -60,6 +63,12 @@ export default new Vuex.Store({
     },
     changeSearchArr(state,arr){
       state.searchArr = arr
+    },
+    changeKeyContent(state,obj){
+      state.keyContent = obj
+    },
+    changeKongArr(state){
+      state.searchArr = []
     }
   },
 
@@ -125,5 +134,11 @@ export default new Vuex.Store({
         commit("changeSearchArr",result.data)
       }
     },
+    async reqKC({commit},keyword){
+      const result = await reqKeyContent(keyword);
+      if(result.code == 200){
+        commit("changeKeyContent",result.data)
+      }
+    }
   }
 })

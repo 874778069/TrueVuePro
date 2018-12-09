@@ -2,18 +2,18 @@
   <div class="wrap">
     <div class="search">
       <span></span>
-      <input v-if="searchInit.defaultKeywords" ref="p" type="text" v-model="searchKey" :placeholder="searchInit.defaultKeywords[parseInt(Math.random() * (searchInit.defaultKeywords.length - 0 + 1) + 0)].keyword" @keydown.13="jumpTo">
-      <div @click="$router.back()" style="padding-left: 0.15rem">取消</div>
+      <input v-focus v-if="searchInit.defaultKeywords" ref="p" type="text" v-model="searchKey" :placeholder="searchInit.defaultKeywords[parseInt(Math.random() * (searchInit.defaultKeywords.length - 0 + 1) + 0)].keyword" @keydown.13="jumpTo">
+      <div @click="back" style="padding-left: 0.15rem">取消</div>
     </div>
     <div class="loading" v-show="searchKey && searchArr.length==0">
       <img src="./012b3c599276cc0000002129ebff53.gif" alt="">
     </div>
     <div class="searchList" v-show="searchArr.length>0">
       <ul>
-        <li v-for="item in searchArr">
-          <a :href="`http://m.you.163.com/search?keyword=${item}&_stat_search=autoComplete`">
-            {{item}}
-          </a>
+        <li v-for="item in searchArr" v-if="item">
+            <router-link :to="`/keyContent?keyword=${item}`">
+              {{item}}
+            </router-link>
         </li>
       </ul>
     </div>
@@ -52,6 +52,10 @@
           //http://m.you.163.com/search?keyword=12&_stat_search=userhand
           window.open(`http://m.you.163.com/search?keyword=${this.searchKey}&_stat_search=userhand`,"_self")
         }
+      },
+      back(){
+        this.$store.commit("changeKongArr")
+        this.$router.back()
       }
     },
     computed:{

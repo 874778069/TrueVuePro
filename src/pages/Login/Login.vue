@@ -181,9 +181,10 @@
       },
 
       async sendCode(){
-        this.time = 30;
+        Toast("发送验证码...");
         const result = await reqCode(this.phone);
         if (result.code == 0){
+          this.time = 30;
           Toast("验证码发送成功");
           var timer = setInterval(()=>{
             this.time--;

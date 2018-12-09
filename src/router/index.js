@@ -19,6 +19,7 @@ import New from "./../pages/shiwu/new/new.vue"
 import shaidan from "./../pages/shiwu/shaidan/shaidan.vue"
 import home from "./../pages/shiwu/home/home.vue"
 import search from "./../pages/search/search.vue"
+import keyContent from "./../pages/keyContent/keyContent.vue"
 
 import shop from "./../pages/shop/shop.vue"
 import pro from "./../pages/pro/pro.vue"
@@ -73,6 +74,7 @@ export default new Router({
     {path:"/shop",component:shop},
     {path:"/pro",component:pro},
     {path:"/search",component:search},
+    {path:"/keyContent",component:keyContent},
     {path:"/",redirect:"/msite"},
     {path:"/*",component:notFound},
   ]

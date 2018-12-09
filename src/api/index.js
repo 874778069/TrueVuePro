@@ -17,6 +17,8 @@ export const reqUserData = () => ajax(BASE + "/userinfo");
 
 export const reqSearchInit = () => ajax(wangYi + "/xhr/search/init.json")
 export const reqSearchArr = (keywordPrefix) => ajax(wangYi + "/xhr/search/searchAutoComplete.json",{keywordPrefix},"POST")
+export const reqKeyContent = (keyword) => ajax(wangYi + `/xhr/search/search.json?keyword=${keyword}&sortType=0&descSorted=false&categoryId=0&matchType=0&floorPrice=-1&upperPrice=-1&size=40&itemId=0&stillSearch=false&searchWordSource=7&_stat_search=autoComplete`)
+
 
 export const reqMsite = () => ajax("/msite");
 export const reqCategory = () => ajax("/classify");
